@@ -57,7 +57,23 @@ class Node{
 	public void addEdge(Node n, int w){
 		adj.add(new edge(n, w));
 	}
-	
+	public void addEdge(edge e){
+		adj.add(e);
+	}
+	public boolean isConnect(Node n){
+		for(edge i : this.adj){
+			if(i.dest.equals(n))
+				return true;
+		}
+		return false;
+	}
+	public edge getConnectEdge(Node n){
+		for(edge i : this.adj){
+			if(i.dest.equals(n))
+				return i;
+		}
+		return null;
+	}
 }
 
 class edge{
@@ -89,12 +105,18 @@ public class Graph {
 			Node[] nArray = findEqV(adjList.get(idIdxMap.get(nameIdMap.get(arg[1]))));
 			int i = 0;
 			while(nArray[i]!=null){
-				addEdge(nArray[i].getId(), arg[0]);
-				addEdge(arg[0], nArray[i].getId());
+				addEdgeT(nArray[i].getId(), arg[0]);
+				addEdgeT(arg[0], nArray[i].getId());
 				i++;
 			}
 		}
 		nameIdMap.put(arg[1], arg[0]);
+		vertex++;
+	}
+	public void addVertex(Node n){
+		idIdxMap.put(n.getId(), vertex);
+		adjList.add(new Node(n));
+		nameIdMap.put(n.getName(), n.getId());
 		vertex++;
 	}
 	public void addEdge(String input){
@@ -104,14 +126,21 @@ public class Graph {
 		int weight = Integer.parseInt(arg[2]);
 		s.addEdge(dest, weight);
 	}
-	public void addEdge(int i, int j){
+	public void addEdgeT(int i, int j){
 		Node s = adjList.get(i);
 		Node dest = adjList.get(j);
 		s.addEdge(dest, 5);
 	}
-	private void addEdge(String id1, String id2){
-		addEdge(idIdxMap.get(id1), idIdxMap.get(id2));
+	private void addEdgeT(String id1, String id2){
+		addEdgeT(idIdxMap.get(id1), idIdxMap.get(id2));
 	}
+	public void addEdge(Node n, edge e){
+		Node s = adjList.get(idIdxMap.get(n.id));
+		Node dest = adjList.get(idIdxMap.get(e.dest.getId()));
+		
+		s.addEdge(dest, e.getW());
+	}
+	
 	private Node[] findEqV(Node n){
 		Node[] result = new Node[31];
 		result[0]=n;

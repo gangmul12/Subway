@@ -4,7 +4,8 @@ public class Subway {
 	
 	public static void main(String arg[]) throws IOException{
 		Graph g = new Graph();
-		BufferedReader br = new BufferedReader(new FileReader(arg[0]));
+		File file = new File(arg[0]);
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF8"));
 		
 		try {	
 			String str = br.readLine();
@@ -21,7 +22,7 @@ public class Subway {
 			e.printStackTrace();
 		}
 		
-		br = new BufferedReader(new InputStreamReader(System.in));
+		br = new BufferedReader(new InputStreamReader(System.in, "UTF8"));
 		
 		while (true)
 		{

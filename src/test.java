@@ -39,6 +39,11 @@ public class test {
 		al.add(new Nodet("wow", 2));
 		al.add(new Nodet("double", 4));
 		System.out.println(al.indexOf(new Nodet(2)));*/
+		ArrayDeque<String> ad = new ArrayDeque<String>();
+		ad.push("wow");
+		System.out.println(ad.peek());
+		
+		
 		HashMap<String, Integer> h = new HashMap<String, Integer>();
 		h.put("wow", 1);
 		h.put("no", 1);
