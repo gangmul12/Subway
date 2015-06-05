@@ -41,9 +41,7 @@ public class Commander {
 	private void minTime(Graph g){
 		dijkstra(g, g.adjList.get(g.idIdxMap.get(g.nameIdMap.get(start))));
 		DFS();
-		while(!ad.isEmpty()){
-			System.out.print(ad.pop().getName()+" ");
-		}
+		printResult();
 		
 	}
 	
@@ -120,12 +118,35 @@ public class Commander {
 				ad.push(spanTree.adjList.get(availIdx));
 				visited[availIdx]=true;
 				if(ad.peek().name.equals(dest))
-					return;
+					break;
 			}
 			
 		}
-		
+		Node lastNode = ad.removeLast();
+		while(lastNode.getName().equals(ad.peekLast().getName()))
+			lastNode = ad.removeLast();
+		ad.addLast(lastNode);
 	}
 	
+	private void printResult(){
+		int time = 0;
+		Node currNode = ad.removeLast();
+		while(ad.size()!=0){
+			if(currNode.getName().equals(ad.peekLast().getName())){
+				System.out.print("["+currNode.getName()+"] ");
+				time +=5;
+				currNode = ad.removeLast();
+				time+=currNode.getConnectEdge(ad.peekLast()).getW();
+				currNode = ad.removeLast();
+			}
+			else{
+				System.out.print(currNode.getName()+" ");
+				time += currNode.getConnectEdge(ad.peekLast()).getW();
+				currNode = ad.removeLast();
+			}
+		}
+		System.out.println(dest);
+		System.out.println(time);
+	}
 
 }
