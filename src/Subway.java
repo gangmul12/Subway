@@ -3,36 +3,49 @@ import java.io.*;
 public class Subway {
 	
 	public static void main(String arg[]) throws IOException{
-		long startTime = System.currentTimeMillis();
 		Graph g = new Graph();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(arg[0]));
-			
+		BufferedReader br = new BufferedReader(new FileReader(arg[0]));
+		
+		try {	
 			String str = br.readLine();
-			
 			while(str.length()!=0){
 				g.addVertex(str);
 				str = br.readLine();
 			}
-			long endTime = System.currentTimeMillis();
-			System.out.println(endTime - startTime);
-			startTime = System.currentTimeMillis();
 			str = br.readLine();
 			while(str!=null){
 				g.addEdge(str);
 				str = br.readLine();
-			}
-			
-			br.close();
+			}			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		long endTime = System.currentTimeMillis();
-		System.out.println(endTime - startTime);
 		
+		br = new BufferedReader(new InputStreamReader(System.in));
 		
+		while (true)
+		{
+			try
+			{
+				String input = br.readLine();
+				if (input.compareTo("QUIT") == 0)
+					break;
+
+				command(input, g);
+			}
+			catch (IOException e)
+			{
+				System.out.println("입력이 잘못되었습니다. 오류 : " + e.toString());
+			}
+		}
+		
+	}
+	public static void command(String input, Graph g){
+		Commander cmd = new Commander(input);
+		cmd.Work(g);
 		
 	}
 
 }
+
+
