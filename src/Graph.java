@@ -86,8 +86,13 @@ public class Graph {
 		idIdxMap.put(arg[0], vertex);
 		adjList.add(new Node(input));
 		if(nameIdMap.get(arg[1])!=null){
-			addEdge(idIdxMap.get(nameIdMap.get(arg[1])), vertex);
-			addEdge(vertex, idIdxMap.get(nameIdMap.get(arg[1])));
+			Node[] nArray = findEqV(adjList.get(idIdxMap.get(nameIdMap.get(arg[1]))));
+			int i = 0;
+			while(nArray[i]!=null){
+				addEdge(nArray[i].getId(), arg[0]);
+				addEdge(arg[0], nArray[i].getId());
+				i++;
+			}
 		}
 		nameIdMap.put(arg[1], arg[0]);
 		vertex++;
@@ -103,6 +108,21 @@ public class Graph {
 		Node s = adjList.get(i);
 		Node dest = adjList.get(j);
 		s.addEdge(dest, 5);
+	}
+	private void addEdge(String id1, String id2){
+		addEdge(idIdxMap.get(id1), idIdxMap.get(id2));
+	}
+	private Node[] findEqV(Node n){
+		Node[] result = new Node[31];
+		result[0]=n;
+		int j=1;
+		for(edge i : n.adj){
+			if(i.dest.getName().equals(n.getName())){
+				result[j]=i.dest;
+				j++;
+			}
+		}
+		return result;
 	}
 
 }

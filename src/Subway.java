@@ -4,9 +4,10 @@ public class Subway {
 	
 	public static void main(String arg[]) throws IOException{
 		long startTime = System.currentTimeMillis();
+		Graph g = new Graph();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(arg[0]));
-			Graph g = new Graph();
+			
 			String str = br.readLine();
 			
 			while(str.length()!=0){
